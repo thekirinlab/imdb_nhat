@@ -1,0 +1,11 @@
+{application,csv,
+             [{applications,[kernel,stdlib,elixir]},
+              {description,"CSV Decoding and Encoding for Elixir"},
+              {modules,['Elixir.CSV','Elixir.CSV.Decoder',
+                        'Elixir.CSV.Defaults','Elixir.CSV.Encode',
+                        'Elixir.CSV.Encode.Any','Elixir.CSV.Encode.BitString',
+                        'Elixir.CSV.Encoder','Elixir.CSV.Lexer',
+                        'Elixir.CSV.Lexer.EncodingError','Elixir.CSV.Parser',
+                        'Elixir.CSV.Parser.SyntaxError','Elixir.CSV.Relay']},
+              {registered,[]},
+              {vsn,"1.2.4"}]}.

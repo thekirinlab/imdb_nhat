@@ -1,0 +1,62 @@
+<h2>Top 100 Movies</h2>
+
+
+<%= form_for @conn, Routes.movie_path(@conn, :index), [method: :get], fn f -> %>
+    <label>
+        Title: <%= text_input f, :search_text %>
+    </label>
+
+    <label>
+        Sort: <%= select f, :sort_type, ["Rating", "Published year", "Total votes"] %>
+    </label>
+    <label>
+        Order: <%= select f, :order, ["Asc", "Desc"] %>
+    </label>
+    <label>
+        Page: <%= select f, :page, 1..100 %>
+    </label>
+    <div>
+        <%= submit "Search" %>
+    </div>
+    <% end %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%= for movie <- @movies do %>
+                    <tr>
+                        <td>
+                            <%= movie.title %>
+                        </td>
+                        <td>
+                            <%= movie.year %>
+                        </td>
+                        <td>
+                            <%= movie.mean_vote %> &#11088;
+                        </td>
+                        <td>
+                            <%= link "Detail" , to: Routes.movie_path(@conn, :show, movie.id) %>
+                        </td>
+                    </tr>
+                    <% end %>
+            </tbody>
+        </table>
+        <ul class="pagination">
+            <li>
+                <%= if @page_number > 1 do %>
+                    <%= link "Prev Page" , to: Routes.movie_path(@conn, :index, %{"search_text"=> @search_text,
+                        "sort_type" => @sort_type, "order" => @order, "page" => @page_number - 1}) %>
+                        <% end %>
+            </li>
+            <li>
+                <%= if @page_number < @total_pages do %>
+                    <%= link "Next Page" , to: Routes.movie_path(@conn, :index, %{"search_text"=> @search_text,
+                        "sort_type" => @sort_type, "order" => @order, "page" => @page_number + 1}) %>
+                        <% end %>
+            </li>
+        </ul>
